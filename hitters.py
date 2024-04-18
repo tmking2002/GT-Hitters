@@ -112,7 +112,7 @@ if 'All' not in result:
     if 'Hard Hit' in result:
         final_yakker = pd.concat([final_yakker, yakker[yakker['HardHit'] == 1]])
     if 'Soft Contact' in result:
-        final_yakker = pd.concat([final_yakker, yakker[(yakker['HardHit'] == 0 & ~(yakker['Exit Velo'].isna()))]])
+        final_yakker = pd.concat([final_yakker, yakker[((yakker['HardHit'] == 0) & (yakker['PitchCall'] != "Foul") & (yakker['Exit Velo'] != ''))]])
     if 'Whiff' in result:
         final_yakker = pd.concat([final_yakker, yakker[yakker['Whiff'] == 1]])
     if 'StrikeCalled' in result:
