@@ -76,9 +76,14 @@ pitches = ['All', 'Good Riseball', 'Bad Riseball', 'Good Dropball', 'Bad Dropbal
 
 pitch = st.sidebar.multiselect('Select Pitch', pitches)
 
+# allow to choose a range of pitch speeds
+min_speed = st.sidebar.slider('Minimum Pitch Speed', min_value=40, max_value=80, value=40)
+max_speed = st.sidebar.slider('Maximum Pitch Speed', min_value=40, max_value=80, value=80)
+
 yakker = yakker[yakker['Batter'] == hitter]
 yakker = yakker[(yakker['PlateLocSide'] > -2) & (yakker['PlateLocSide'] < 2) & (yakker['PlateLocHeight'] > 0) & (yakker['PlateLocHeight'] < 5)]
 yakker = yakker[(yakker['pitch'].isin(pitch)) | ('All' in pitch)]
+yakker = yakker[(yakker['RelSpeed'] >= min_speed) & (yakker['RelSpeed'] <= max_speed)]
 
 yakker['Result'] = yakker['PitchCall']
 
