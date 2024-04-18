@@ -80,7 +80,7 @@ pitch = st.sidebar.multiselect('Select Pitch', pitches)
 min_speed = st.sidebar.slider('Minimum Pitch Speed', min_value=40, max_value=80, value=40)
 max_speed = st.sidebar.slider('Maximum Pitch Speed', min_value=40, max_value=80, value=80)
 
-yakker = yakker[yakker['Batter'] == hitter]
+yakker = yakker[yakker['Batter'].isin(hitter)]
 yakker = yakker[(yakker['PlateLocSide'] > -2) & (yakker['PlateLocSide'] < 2) & (yakker['PlateLocHeight'] > 0) & (yakker['PlateLocHeight'] < 5)]
 yakker = yakker[(yakker['pitch'].isin(pitch)) | ('All' in pitch)]
 yakker = yakker[(yakker['RelSpeed'] >= min_speed) & (yakker['RelSpeed'] <= max_speed)]
@@ -131,7 +131,7 @@ yakker = yakker.rename(columns={'pitch': 'Pitch'})
 scatter = alt.Chart(yakker).mark_circle(size=100).encode(
     alt.X('PlateLocSide', axis=alt.Axis(labels=False, ticks=False, title='')),
     alt.Y('PlateLocHeight', axis=alt.Axis(labels=False, ticks=False, title='')),
-    tooltip=['Pitcher', 'Game', 'Pitch', 'Result', 'Pitch Speed', 'Exit Velo']
+    tooltip=['Pitcher', 'Batter', 'Game', 'Pitch', 'Result', 'Pitch Speed', 'Exit Velo']
 ).properties(
     height=500
 )
