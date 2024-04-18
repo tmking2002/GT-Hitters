@@ -68,7 +68,7 @@ yakker = yakker[yakker['pitch'] != '']
 
 st.sidebar.header('GT Hitters')
 
-hitter = st.sidebar.selectbox('Select Hitter', yakker['Batter'].unique())
+hitter = st.sidebar.multiselect('Select Hitter', yakker['Batter'].unique())
 
 result = st.sidebar.multiselect('Select Result', ['All', 'Hit', 'Hard Hit', 'Soft Contact', 'Whiff', 'StrikeCalled'])
 
@@ -121,11 +121,9 @@ if yakker.empty:
     st.write('No data available for selected filters')
     st.stop()
 
-title = alt.TitleParams(hitter, anchor='middle')
-
 yakker = yakker.rename(columns={'pitch': 'Pitch'})
 
-scatter = alt.Chart(yakker, title=title).mark_circle(size=100).encode(
+scatter = alt.Chart(yakker).mark_circle(size=100).encode(
     alt.X('PlateLocSide', axis=alt.Axis(labels=False, ticks=False, title='')),
     alt.Y('PlateLocHeight', axis=alt.Axis(labels=False, ticks=False, title='')),
     tooltip=['Pitcher', 'Game', 'Pitch', 'Result', 'Pitch Speed', 'Exit Velo']
