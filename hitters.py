@@ -61,10 +61,10 @@ yakker['pitch'] = np.select([(yakker['pitch'] == "Riseball") & (yakker['InducedV
                              yakker['pitch'] == "Curveball",
                              yakker['pitch'] == "Changeup"],
                             ["Good Riseball", "Bad Riseball", "Good Dropball", "Bad Dropball", "Good Curveball", "Bad Curveball", "Changeup"],
-                            default=np.nan)
+                            default="")
 
 yakker = yakker.dropna(subset=['pitch'])
-yakker = yakker[~yakker['pitch'].isnull()]
+yakker = yakker[yakker['pitch'] != '']
 
 st.sidebar.header('GT Hitters')
 
